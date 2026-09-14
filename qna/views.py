@@ -22,8 +22,9 @@ def create(request):
         #  request.user 객체
         new_questions.writer = request.user
         new_questions.save()
-        return redirect('main')
-
+        return redirect('main') 
+    elif request.method == 'GET':
+        return render(request, '404.html')
 
 
 
