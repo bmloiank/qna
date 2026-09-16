@@ -190,8 +190,50 @@ $ git init
 https://www.toptal.com/developers/gitignore
 
 
-## 3. 
+## 3. 전체 선택
+```
+$ git add .
+```
+
+## 4. git 상태 확인
+```
+$ git status
+```
 
 
+## 5. 선택 해제
+```
+$ git reset .
+$ git reset 디렉토리/파일명
+```
 
+## 6. 선택한 내용 저장하기
+```
+git commit -m "first init"
+git commit
 
+# 으로 되어있는건 작성이 안돼(주석)
+맨위에는 제목(한글,영어 가능) - feat: 회원 로그인기능
+(줄바꿈)
+본문
+- auth_user를 사용해서 슈퍼유저 생성하고 '/account/login' 로그인 기능 완성
+
+:wq (write 후에 quit)
+:q! (바로 강제종료)
+:q (종료)
+
+```
+## 7. git 히스토리보기
+```
+git log
+```
+
+## 8. github 연결
+```
+git remote add 별칭 url
+
+```
+## 9. github 연결
+```
+git push origin main
+```
