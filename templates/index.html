@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 <body>
     {% if user.is_authenticated %}
@@ -13,6 +16,52 @@
 
         <!-- 로그인 한 상태여야지만 글쓰기버튼이 보여지기 -->
         <a href="/write">글쓰기</a>
+
+        <!--  목록 만들기  https://static.wikidocs.net/images/page/71307/C_3-08_1.png -->
+        <!-- 표만들기 
+        <table>
+            컬럼이름들이 적혀있는 table header
+            <thead>
+                학생정보
+                이름 학년 핸드폰번호
+                <tr>
+                    <th>컬럼명</th>
+                    <th>컬럼명</th>
+                    <th>컬럼명</th>
+                    <th>컬럼명</th>
+                </tr>
+            </thead>    
+            표 내용들이 적히는 공간
+                <tr>
+                    <td></td>
+                </tr>
+            <tbody>
+            </tbody>
+            
+            https://learn-attachment.microsoft.com/api/attachments/c158a7aa-7fb4-42c7-8e2a-39023186aef5?platform=QnA
+        </table> -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>작성일자</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %} 
+                    <tr>
+                        <td>{{question.id}}</td>
+                        <td><a href='/question/detail/{{question.id}}'>{{question.title}}</a></td>
+                        <td>{{question.writer}}</td>
+                        <td>{{question.created_at}}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
 
 
 
