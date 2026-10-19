@@ -1,4 +1,244 @@
-body{
-    /* background-color: red; */
+/* https://noonnu.cc/ */
+/* 폰트 import */
+@font-face {
+    font-family: 'Stella';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2608201622@stellar-serif/stellar-serif/Stellar_Serif_Bold_Condensed.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
 }
 
+body{
+    /* background-color: red(; */
+}
+
+/* index.html */
+
+
+
+.list_table{
+    margin: 100px 0px;
+    width: 100%;
+}
+/* 글씨 정렬 text-align : center */
+.list_table th{
+    padding: 4px 8px;
+    border-bottom: 1px solid rgb(207, 112, 112);
+    text-align : center;
+}
+
+.list_table th:nth-child(1){
+    width: 80px;
+}
+
+.list_table td:nth-child(2){
+    text-align: left;
+}
+
+.list_table th:nth-child(4){
+    width: 250px;
+}
+
+.list_table td{
+    padding: 4px 8px;
+    border-bottom: 1px solid rgb(207, 112, 112);
+    text-align : center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* detail.html */
+
+main{
+    padding: 100px 0px;
+}
+
+.sec_questions{
+    margin-bottom: 30px;
+}
+
+.sec_questions .title{
+    font-size: 50px;
+    font-family: 'Stella';
+    /* 자간 : 글자와 글자사이 (letter-spacing: 폰트 사이즈 대비 상대적으로 늘리고 싶으면 em 고정으로 늘리면 px) */
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+}
+
+.title .question_mark{
+    color: rgb(165, 2, 2);
+}
+
+.sec_questions .meta{
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.sec_questions .meta .created_at{
+    letter-spacing: 1px;
+    color: rgb(207, 112, 112);
+    /* padding-left: 16px; */
+}
+
+.sec_questions .meta .writer::after{
+    content: '';
+    /* 원만들기 
+        border-radius :100%
+    */
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    background-color: #00000025;
+    border-radius: 100%;
+    vertical-align: middle;
+    margin: 0px 8px;
+}
+/* before after 설명할것
+가상요소
+: 요소 앞에 가상으로 만드는 것을 befor
+: 요소 뒤에 가상으로 만드는 것을 after
+
+선택자::before
+선택자::after{
+    content:"뒤"
+}
+
+하나만 정렬하기
+maring-left:100%
+
+*/
+.dropdown{
+    display: flex;
+    justify-content: end;
+}
+
+.dropdown .dropdown-toggle::after{
+    /* display: none => 안보여주겠다. hide() */
+    display: none;
+}
+
+.dropdown .dropdown-toggle{
+    background-color: transparent;
+    border-color: transparent; 
+    color: rgb(207, 112, 112);
+    margin-left: 100%;
+}
+
+.dropdown .dropdown-toggle:hover{
+    color: rgb(165, 2, 2);
+}
+
+/* https://m3.material.io/ */
+
+
+.sec_comment .comment_write textarea{
+    border: unset;
+    width: 100%;
+}
+/* # 이미지 사이즈 줄이기  
+프로필 썸네일 사이즈가 굉장히 작아요.
+*/
+.sec_comment .comment_write_box{
+    border: 1px solid rgb(207, 112, 112);
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+.sec_comment .comment_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid rgb(207, 112, 112);
+    border-radius: 20px; */
+    padding: 17px 30px;
+    gap: 24px;
+    /* margin-bottom: 30px; */
+}
+
+.sec_comment .comment_button img{
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+
+.sec_comment .comment_button .comment_btn_info{
+    width: 100%;
+    margin: 0px 0px
+}
+
+/* 과제 나머지 꾸며오기! */
+.sec_comment .comment_button button{
+    display: inline-block;
+    height: 36px;
+    width: 65px;
+    background-color: rgb(201, 44, 44);
+    color: #fff;
+    border: none;
+    border-radius: 70px;
+    font-size: 15px;
+    display: none;
+}
+
+.sec_comment .comment_button #comment_submit{
+    display: none;
+}
+
+.sec_comment .comment_button p{
+    margin: 0px 0px;
+}
+
+.sec_comment .comment_button .comment_btn_info p:nth-child(1){
+    font-size: 14px;
+    color: rgb(207, 112, 112);
+}
+
+.sec_comment .comment_button .comment_btn_info p:nth-child(2){
+    font-weight: 700;
+}
+
+.sec_comment .comment_write{
+    border-top: 1px solid rgb(207, 112, 112);
+    /* border-radius: 20px; */
+    padding: 17px 30px;
+    /* margin-bottom: 30px; */
+    display: none;
+}
+
+.show{
+    display: block !important;
+}
+
+textarea:focus-visible{
+    outline: none;
+}
+
+.sec_comment .comment_deck{
+    border: 1px solid rgb(207, 112, 112);
+    border-radius: 20px;
+    padding: 17px 30px;
+    margin-bottom: 30px;
+    /* display: none; */
+}
+
+.sec_comment .comment_deck .meta{
+    margin-bottom: 8px;
+}
+
+.sec_comment .comment_deck .meta .writer{
+    font-size: 20px;
+}
+
+.sec_comment .comment_deck .meta .created_at{
+    font-size: 14px;
+    color: rgb(207, 112, 112);
+}
