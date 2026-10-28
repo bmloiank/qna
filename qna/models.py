@@ -30,8 +30,42 @@ class Questions(models.Model):
         # verbose_name_plural = "복수이름 직접 정하기"
         verbose_name='질문'
         verbose_name_plural='질문 목록'
-        
 
 
-# 과제1) 데이터베이스에 테이블 생성해보세요. > db.sqlite3에서 나오도록하기
-# 과제2) admin페이지에가서 질문추가해보기
+'''
+DB 테이블을 여러개 관계를 맺으면서 사용할기
+sqlite, mysql, postgresql => 관계형 데이터베이스
+mongoDB, ... -> 비관계형 데이터베이스
+
+1:1 관계 회원 - 멤버십카드
+1:N(1:다) 관계 회원 - 배송지관리
+N:M(다:다) 팔로우 팔로잉
+'''
+
+'''
+# <기획서 - 개발아닌사람이 작성하는 문서>
+# <기능정의서 - 개발자가 작성하는 문서>
+댓글 comments
+- 제목
+- 질문id
+- 작성자 : 삭제시 set_null
+- 내용
+- 조회수
+- 생성일자
+- 수정일자
+'''
+
+class Comments(models.Model):
+    # 질문번호가 담긴 컬럼을 만들기 - 어떤 질문에 속한 답변인지를
+    # 답글 : 질문question
+    # 질문입장이 : 답글들 comments (related_name)
+    # 삭제정책 : on_delete = models.CASCADE
+    question = models.ForeignKey(Questions, related_name='comments', on_delete=models.CASCADE)
+    # 작성자 
+    # 댓글 다 - 1 유저 
+    # null 값 허용하기 => null=True
+    writer = models.ForeignKey(User, related_name='comments', on_delete=models.SET_NULL, null=True)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now =True)
+

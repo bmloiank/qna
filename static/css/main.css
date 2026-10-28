@@ -242,3 +242,12 @@ textarea:focus-visible{
     font-size: 14px;
     color: rgb(207, 112, 112);
 }
+
+.bg_red{
+    background-color: #c92c2c !important;
+}
+
+.modal_textbox{
+    width: 100%;
+    border: none;
+}
