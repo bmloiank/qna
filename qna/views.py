@@ -1,17 +1,74 @@
 from django.shortcuts import render, redirect
 from .models import Questions, Comments
-
+from django.core.paginator import Paginator
 # render : html 새롭게 생성하기
 # redirect : 기존에 있떤 url별칭로 바로 넘어가기
 
 # Create your views here.
 
+
 def main(request):
+    # 만약에 필터 혹은 검색이 추가되면 순서는 줄어요. 
+    # (1)검색 & 필터 (2) 정렬 (3) 페이지네이션
+
+    # GET방식 데이터 받기
+    search = request.GET.get('search')
+    sort = request.GET.get('sort', '-created_at')
+    page = request.GET.get('page', 1)
+
     question_list = Questions.objects.all()
+    # 만약에 search가 있다면 search를 걸고 아니라면, 전체
+    # 모델이름.objects.filter(컬럴속성며명="찾을내용") : 여러개의 데이터를 찾는 목표
+    # 모델이름.objects.get(id="찾을내용") : 1개 데이터를 찾는게 목표
+
+    # "안"
+    # "안녕하세요"
+    # "제안"
+    # "물놀이안전수칙"
+    # => 포함된 데이터 찾기 : 모델객체.filter(컬럼명__contains="찾을 단어")
+
+    if search:
+        question_list = question_list.filter(title__icontains=search)
+    
+
+
+    # 정렬해서 갖구와!
+    # 모델이름.objects.order_by('정렬할컬럼명') 기본이 오름차순 반대 -내림차순
+    # 오름차순 넘길때는 컬럼명 / 내림차순을 넘길때 컬럼명desc
+    # question_list = Questions.objects.all()
+    if sort:
+        question_list = question_list.order_by(sort)
+
+
+    #TODO: 검색할때는 초기화 페이지네이션 정렬 정리하기
+    # if sort == 'title':
+    #     question_list = Questions.objects.order_by('title')
+    # elif sort == 'viewdecs':
+    #     question_list = Questions.objects.order_by('')
+    # elif sort == 'createddesc':
+    #     question_list = Questions.objects.order_by('-created_at')
+    # elif sort == 'createdasc':
+    #     question_list = Questions.objects.order_by('created_at')
+
+
+    # 페이지를 request에서 GET방식으로 가져오기 -------------------
+    # - 페이지값이 없으면 기본값으로 1페이지를 보여주게하기
+    
+    # 페이지네이션 하기위해서 paginator 패키지를 가져오기
+    # 페이지내이션 원하는 길이만큼 잘라서 보여주기
+    # 데이터는 = Paginator(모델리스트, 보여주고싶은 페이지길이)
+    page_list = Paginator(question_list, 10)
+    # 내가 원하느 페이지 선택하기
+    # 선택한페이지데이터 = page_list.get_page(페이지번호)
+    page_get = page_list.get_page(page)
+
     data = {
-        'questions':question_list,
-        }
+        'questions':page_get,
+    }
+
     return render(request, 'index.html', data)
+
+
 
 def write(request):
     #  로그인한 녀석을 가져와서 보여줘야한다.

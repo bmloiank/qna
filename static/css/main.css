@@ -251,3 +251,11 @@ textarea:focus-visible{
     width: 100%;
     border: none;
 }
+
+.page-item.current .page-link{
+    background-color: rgb(247, 203, 203) !important;
+}
+
+.page-item a.page-link{
+    color: rgb(165, 2, 2);
+}

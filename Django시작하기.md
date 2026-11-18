@@ -233,7 +233,7 @@ git log
 git remote add 별칭 url
 
 ```
-## 9. github 연결
+## 9. github 업로드
 ```
 git push origin main
 ```

@@ -11,7 +11,13 @@
 </head>
 <body>
 <main>
-    <div class="container">
+    <!-- <a href="#">임시링크(즉 아무페이지 넘어감없음)</a>
+    <a href="/">루트페이지(메인화면)</a>
+    <a href="a">현경로에 a로 넘어가기</a>
+    <a href="?key=value&key2=value2">params 던지기</a> -->
+
+
+    <div class="container" id="as">
     {% if user.is_authenticated %}
         <!-- id님 환영합니다.-->
         {{user.username}}님 환영합니댜!!
@@ -43,6 +49,15 @@
             https://learn-attachment.microsoft.com/api/attachments/c158a7aa-7fb4-42c7-8e2a-39023186aef5?platform=QnA
         </table>
         -->
+
+        <!-- 제목순, 조회순, 최신순, 날짜순 오름차 asc 내림차순 desc-->\
+        <!-- 기본으로 설정되고 있는 request.GET page 가져오기 -->
+        <a href="?sort=title&page={{request.GET.page}}&search={{request.GET.search}}">제목순</a>
+        <a href="?sort=viewdecs&page={{request.GET.page}}&search={{request.GET.search}}">조회순</a>
+        <a href="?sort=-created_at&page={{request.GET.page}}&search={{request.GET.search}}">최신순</a>
+        <a href="?sort=created_at&page={{request.GET.page}}&search={{request.GET.search}}">날짜순</a>
+        
+    
         <table class="list_table">
             <thead>
                 <tr>
@@ -63,11 +78,66 @@
                 {% endfor %}
             </tbody>
         </table>
+        <!-- 
+            페이지 쪼갠 question에는 페이지네이션을 위한 다른 속성들이 추가로 같이 넘어감.
+            변수.page_range
+
+            페이지네이션을 위해서 Paginator를 사용
+            Paginator에서 지원하는 메서드(https://docs.djangoproject.com/en/6.1/ref/paginator/)
+            1. count : 전체 데이터 수
 
 
+        
+        -->
+        {{questions.paginator.count}}
+        {{questions.paginator.num_pages}}
+        {{questions.paginator.page_range}}
 
 
+        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- 이전페이지가 있나요?
+                    questions.has_previous 
+                    이전페이지번호 
+                    questions.previous_page_number
+                -->
+                {% if questions.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="/?page={{questions.previous_page_number}}&sort={{request.GET.sort}}&search={{request.GET.search}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for i in questions.paginator.page_range %}
+                    <!-- 조건 현재페이지번호에서 앞으로 두칸, 나 , 뒤로 2칸 사이의 번호만 출력하기
+                    템플릿 언어에서 변수|add:"-2" 
+                    -->
+                    {% if i >= questions.number|add:"-2" and questions.number|add:"2" >= i %}
 
+                    <!-- 현재페이지일때 스타일을 넣었으면 좋겠다. => 조건문 
+                        템플릿언어 questions.number
+                    -->
+                    <li class="page-item {% if questions.number == i %} current {% endif %}"><a class="page-link" href="/?page={{i}}&sort={{request.GET.sort}}&search={{request.GET.search}}">{{i}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if questions.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="/?page={{questions.next_page_number}}&sort={{request.GET.sort}}&search={{request.GET.search}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" role="search" action="/" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            
+        </nav>
+        
+
+        
     {% else %}
         <a href="/account/login">로그인</a>
     {% endif %}
