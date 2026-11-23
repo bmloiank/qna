@@ -53,7 +53,7 @@
         <!-- 제목순, 조회순, 최신순, 날짜순 오름차 asc 내림차순 desc-->\
         <!-- 기본으로 설정되고 있는 request.GET page 가져오기 -->
         <a href="?sort=title&page={{request.GET.page}}&search={{request.GET.search}}">제목순</a>
-        <a href="?sort=viewdecs&page={{request.GET.page}}&search={{request.GET.search}}">조회순</a>
+        <a href="?sort=-view_count&page={{request.GET.page}}&search={{request.GET.search}}">조회순</a>
         <a href="?sort=-created_at&page={{request.GET.page}}&search={{request.GET.search}}">최신순</a>
         <a href="?sort=created_at&page={{request.GET.page}}&search={{request.GET.search}}">날짜순</a>
         
@@ -64,6 +64,7 @@
                     <th>번호</th>
                     <th>제목</th>
                     <th>글쓴이</th>
+                    <th>조회수</th>
                     <th>작성일자</th>
                 </tr>
             </thead>
@@ -73,6 +74,7 @@
                         <td>{{question.id}}</td>
                         <td><a href='/question/detail/{{question.id}}'>{{question.title}}</a></td>
                         <td>{{question.writer}}</td>
+                        <td>{{question.view_count}}</td>
                         <td>{{question.created_at}}</td>
                     </tr>
                 {% endfor %}

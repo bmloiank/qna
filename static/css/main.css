@@ -116,6 +116,19 @@ main{
 maring-left:100%
 
 */
+.sec_questions .meta .view_count::after{
+    content: '';
+    /* 원만들기 
+        border-radius :100%
+    */
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    background-color: #00000025;
+    border-radius: 100%;
+    vertical-align: middle;
+    margin: 0px 8px;
+}
 .dropdown{
     display: flex;
     justify-content: end;

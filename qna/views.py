@@ -27,20 +27,20 @@ def main(request):
     # "물놀이안전수칙"
     # => 포함된 데이터 찾기 : 모델객체.filter(컬럼명__contains="찾을 단어")
 
-    if search:
-        question_list = question_list.filter(title__icontains=search)
-    
+    # 대소문자 되는걸로......
 
+    if search:
+        question_list = question_list.filter(title__contains=search)
 
     # 정렬해서 갖구와!
-    # 모델이름.objects.order_by('정렬할컬럼명') 기본이 오름차순 반대 -내림차순
+    # 모델이름.objects.order_by('정렬할컬럼명') 기본이 오름차순 
+    # 반대 -내림차순
     # 오름차순 넘길때는 컬럼명 / 내림차순을 넘길때 컬럼명desc
     # question_list = Questions.objects.all()
     if sort:
         question_list = question_list.order_by(sort)
 
 
-    #TODO: 검색할때는 초기화 페이지네이션 정렬 정리하기
     # if sort == 'title':
     #     question_list = Questions.objects.order_by('title')
     # elif sort == 'viewdecs':
@@ -91,6 +91,10 @@ def create(request):
 def detail(request, q_id):
     # get 가져오기 : 1개 가져올때
     question_detail = Questions.objects.get(id=q_id)
+
+    # 질문의 조회수를 1씩 올려주기
+    question_detail.view_count += 1
+    question_detail.save()
     
     # 다른질문은 필요없고, 해당하는 질문에 작성된 댓글만 보여지게하고 싶어! filter
     # 질문이 질문id랑 같은것

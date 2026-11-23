@@ -34,7 +34,7 @@
                     <!-- 날짜 형식을 변경 템플릿언어
                     날짜변수|date:"Y.m.d" 
                     -->
-                    <span class="writer">{{question.writer}}</span><span class="created_at">{{question.created_at|date:'Y.m.d'}}</span>
+                    <span class="writer">{{question.writer}}</span><span class="view_count">조회수 {{question.view_count}}</span><span class="created_at">{{question.created_at|date:'Y.m.d'}}</span>
                 </div>
                 <div class="text">
                     {{question.text}}

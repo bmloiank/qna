@@ -17,11 +17,14 @@ class Questions(models.Model):
     # - 질문 내용 : 긴문자 models.TextField() 
     # - 생성일자 created_at = models.DateTimeField(auto_now_add=True)
     # - 수정일자 updated_at = models.DateTimeField(auto_now=True) # 저장하면 항상하기
+    # - 조회수 = models.IntegerField()
     title = models.CharField(max_length=100)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    # 기본값을 default=0
+    view_count = models.IntegerField(default=0)
+    
     class Meta:
         # DB 테이블명 정하기
         db_table='questions'
